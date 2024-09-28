@@ -8,10 +8,21 @@
 <body>
 
     <h1>Audio Example</h1>
-    <audio controls>
+    <audio id="audioPlayer" controls>
         <source src="https://audio.podigee-cdn.net/1601069-m-a815815ca5cdbd8ac66962404575f58c.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+
+    <!-- Button to jump to 3 minutes and 30 seconds -->
+    <button onclick="skipToTime()">Start at 3'30"</button>
+
+    <script>
+        function skipToTime() {
+            var audio = document.getElementById("audioPlayer");
+            audio.currentTime = 210;  // 3 minutes and 30 seconds is 210 seconds
+            audio.play();  // Start playing after jumping to the specified time
+        }
+    </script>
 
 </body>
 </html>
