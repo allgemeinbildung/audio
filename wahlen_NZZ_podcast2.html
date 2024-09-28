@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZZ Podcast</title>
+    <style>
+        /* Style the custom play button */
+        .audio-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .play-button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .play-button:active {
+            background-color: #005bb5;
+        }
+
+        /* Hide the default audio player */
+        #audioPlayer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>NZZ Podcast</h1>
+    <p></p>
+    <div class="audio-container">
+        <button class="play-button" id="playButton">Play</button>
+    </div>
+
+    <audio id="audioPlayer">
+        <source src="https://audio.podigee-cdn.net/1601069-m-a815815ca5cdbd8ac66962404575f58c.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="audioPlayer">
+        <source src="https://audio.podigee-cdn.net/1601069-m-a815815ca5cdbd8ac66962404575f58c.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <p></p>
+    <a href="https://www.nzz.ch/podcasts/usa-wie-auslaendische-maechte-den-wahlkampf-manipulieren-amerika-entscheidet-ld.1848821" target="_blank">
+        Quelle: NZZ «Wie ausländische Mächte den US-Wahlkampf zu manipulieren versuchen»
+    </a>
+
+    <script>
+        var audio = document.getElementById("audioPlayer");
+        var playButton = document.getElementById("playButton");
+        var startTime = 7; // Start time (19 minutes and 26 seconds)
+        var finalStopTime = 692; // Final stop time (7 minutes)
+
+        // Function to toggle play/pause
+        playButton.addEventListener("click", function() {
+            if (audio.paused) {
+                audio.currentTime = startTime;
+                audio.play();
+                playButton.textContent = "Pause";
+            } else {
+                audio.pause();
+                playButton.textContent = "Play";
+            }
+        });
+
+        // Automatically stop the audio at the final stop time
+        audio.addEventListener('timeupdate', function() {
+            if (audio.currentTime >= finalStopTime) {
+                audio.pause();
+                playButton.textContent = "Play";
+            }
+        });
+    </script>
+</body>
+</html>
