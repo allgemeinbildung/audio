@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed MP3</title>
+</head>
+<body>
+    <h1>Audio Example</h1>
+    <audio id="audioPlayer" controls>
+        <source src="https://audio.podigee-cdn.net/1570225-m-37a6cb8589bf9bfc94e4162fab6df596.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        // Define the time ranges in seconds
+        var startTime = 1166; // Start at 19 minutes and 26 seconds
+        var finalStopTime = 1530; // Final stop time at 7 minutes
+        var audio = document.getElementById("audioPlayer");
+
+        // Set the starting point when the user clicks play
+        audio.addEventListener('play', function() {
+            if (audio.currentTime < startTime) {
+                audio.currentTime = startTime;
+            }
+        });
+
+        // Time update event listener to stop the audio at the final stop time
+        audio.addEventListener('timeupdate', function() {
+            if (audio.currentTime >= finalStopTime) {
+                audio.pause();  // Stop the audio
+                audio.currentTime = finalStopTime;  // Reset to final stop time
+            }
+        });
+    </script>
+</body>
+</html>
