@@ -5,44 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embed MP3 - NZZ Podcast</title>
     <style>
-        /* Hide the time bar, volume control, and other UI elements */
-        audio::-webkit-media-controls-enclosure {
-            display: none;
+        /* Style the custom play button */
+        .audio-container {
+            display: flex;
+            align-items: center;
         }
-        audio::-webkit-media-controls-play-button {
-            display: block;
+
+        .play-button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .play-button:active {
+            background-color: #005bb5;
+        }
+
+        /* Hide the default audio player */
+        #audioPlayer {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>NZZ Podcast</h1>
+    <h1>Audio Example: NZZ Podcast</h1>
     <p>Source: NZZ «Noch vor kurzem hätte niemand geglaubt, dass die Demokraten einen solchen Aufwind erleben würden»</p>
     <a href="https://www.nzz.ch/podcasts/neuer-nzz-podcast-zur-us-wahl-amerika-entscheidet-ld.1844602" target="_blank">
+        Listen on NZZ
     </a>
 
-    <audio id="audioPlayer" controls>
+    <div class="audio-container">
+        <button class="play-button" id="playButton">Play</button>
+    </div>
+
+    <audio id="audioPlayer">
         <source src="https://audio.podigee-cdn.net/1570225-m-37a6cb8589bf9bfc94e4162fab6df596.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <script>
-        // Define the time ranges in seconds
-        var startTime = 1166; // Start at 19 minutes and 26 seconds
-        var finalStopTime = 1530; // Final stop time at 7 minutes (for this example, please update as needed)
         var audio = document.getElementById("audioPlayer");
+        var playButton = document.getElementById("playButton");
+        var startTime = 1166; // Start time (19 minutes and 26 seconds)
+        var finalStopTime = 1530; // Final stop time (7 minutes)
 
-        // Set the starting point when the user clicks play
-        audio.addEventListener('play', function() {
-            if (audio.currentTime < startTime) {
+        // Function to toggle play/pause
+        playButton.addEventListener("click", function() {
+            if (audio.paused) {
                 audio.currentTime = startTime;
+                audio.play();
+                playButton.textContent = "Pause";
+            } else {
+                audio.pause();
+                playButton.textContent = "Play";
             }
         });
 
-        // Time update event listener to stop the audio at the final stop time
+        // Automatically stop the audio at the final stop time
         audio.addEventListener('timeupdate', function() {
             if (audio.currentTime >= finalStopTime) {
-                audio.pause();  // Stop the audio
-                audio.currentTime = finalStopTime;  // Reset to final stop time
+                audio.pause();
+                playButton.textContent = "Play";
             }
         });
     </script>
