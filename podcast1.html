@@ -13,15 +13,27 @@
         Your browser does not support the audio element.
     </audio>
 
-    <!-- Button to jump to 3 minutes and 30 seconds -->
-    <button onclick="skipToTime()">Start at 3'30"</button>
-
     <script>
-        function skipToTime() {
-            var audio = document.getElementById("audioPlayer");
-            audio.currentTime = 210;  // 3 minutes and 30 seconds is 210 seconds
-            audio.play();  // Start playing after jumping to the specified time
-        }
+        // Define the start and stop times in seconds
+        var startTime = 210; // 3 minutes and 30 seconds
+        var stopTime = 300;  // 5 minutes (optional)
+
+        var audio = document.getElementById("audioPlayer");
+
+        // Set the starting point when the user clicks play
+        audio.addEventListener('play', function() {
+            if (audio.currentTime < startTime) {
+                audio.currentTime = startTime;
+            }
+        });
+
+        // Check if the stop time is reached
+        audio.addEventListener('timeupdate', function() {
+            if (audio.currentTime >= stopTime) {
+                audio.pause();  // Stop the audio
+                audio.currentTime = stopTime;  // Reset to stop time
+            }
+        });
     </script>
 
 </body>
